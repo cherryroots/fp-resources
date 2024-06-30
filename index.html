@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fish paper</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="monad-pools-and-functor-fins-a-purely-functional-approach-to-optimizing-salmonid-aquaculture-yield">Monad Pools and Functor Fins: A Purely Functional Approach to Optimizing Salmonid Aquaculture Yield</h1>
+<h2 id="abstract">Abstract</h2>
+<p>In this groundbreaking whitepaper, we explore the application of advanced functional programming concepts to the field of salmon farming. By leveraging the power of Haskell’s monads and functors, we present a novel approach to optimizing salmonid aquaculture yield.</p>
+<p>Our research introduces the concept of “Monad Pools,” a revolutionary system where each salmon is treated as a monadic value, allowing for seamless composition of farming operations. We demonstrate how the use of the Maybe monad can elegantly handle the uncertainty of salmon survival rates, while the IO monad effectively manages the complex interactions between fish and their environment.</p>
+<p>Furthermore, we present “Functor Fins,” a purely functional model of fish anatomy that enables efficient mapping of growth factors across entire populations. By treating each fin as a functor, we can apply transformations to fish attributes with unprecedented clarity and composability.</p>
+<p>The paper also explores the use of lazy evaluation in modeling long-term population dynamics, and how higher-order functions can simplify the implementation of feeding schedules. Our results show a 42% increase in salmon yield and a 69% reduction in code complexity compared to traditional imperative approaches.</p>
+<p>In conclusion, we argue that the adoption of purely functional programming paradigms in salmon farming not only leads to more maintainable and bug-free systems but also results in happier, more algebraically satisfying fish. Future work will investigate the potential of applying category theory to tuna ranching.</p>
+<h2 id="introduction">1. Introduction</h2>
+<p>The salmon farming industry has long been plagued by inefficiencies and unpredictability. Traditional imperative approaches to managing aquaculture systems have resulted in spaghetti code as tangled as fishing nets. This paper proposes a radical shift: applying purely functional programming principles, specifically those found in Haskell, to revolutionize salmon farming.</p>
+<h2 id="monad-pools-a-new-paradigm-in-fish-management">2. Monad Pools: A New Paradigm in Fish Management</h2>
+<h3 id="the-salmon-monad">2.1 The Salmon Monad</h3>
+<p>We introduce the Salmon monad, a powerful abstraction for managing the lifecycle of individual fish:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">data</span> <span class="token constant">Salmon</span> <span class="token hvariable">a</span> <span class="token operator">=</span> <span class="token constant">Salmon</span> <span class="token punctuation">{</span> <span class="token hvariable">runSalmon</span> <span class="token operator">::</span> <span class="token constant">IO</span> <span class="token hvariable">a</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">instance</span> <span class="token constant">Monad</span> <span class="token constant">Salmon</span> <span class="token keyword">where</span>
+    <span class="token builtin">return</span> <span class="token hvariable">x</span> <span class="token operator">=</span> <span class="token constant">Salmon</span> <span class="token operator">$</span> <span class="token builtin">return</span> <span class="token hvariable">x</span>
+    <span class="token hvariable">m</span> <span class="token operator">&gt;&gt;=</span> <span class="token hvariable">f</span>  <span class="token operator">=</span> <span class="token constant">Salmon</span> <span class="token operator">$</span> <span class="token keyword">do</span>
+        <span class="token hvariable">x</span> <span class="token operator">&lt;-</span> <span class="token hvariable">runSalmon</span> <span class="token hvariable">m</span>
+        <span class="token hvariable">runSalmon</span> <span class="token punctuation">(</span><span class="token hvariable">f</span> <span class="token hvariable">x</span><span class="token punctuation">)</span>
+
+<span class="token keyword">instance</span> <span class="token constant">MonadIO</span> <span class="token constant">Salmon</span> <span class="token keyword">where</span>
+    <span class="token hvariable">liftIO</span> <span class="token operator">=</span> <span class="token constant">Salmon</span>
+</code></pre>
+<p>This monad encapsulates the inherent unpredictability of salmon behavior while providing a clean interface for composing farming operations.</p>
+<h3 id="handling-uncertainty-with-the-maybe-monad">2.2 Handling Uncertainty with the Maybe Monad</h3>
+<p>Salmon survival rates are notoriously variable. We use the Maybe monad to elegantly handle this uncertainty:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">type</span> <span class="token constant">SalmonID</span> <span class="token operator">=</span> <span class="token constant">Int</span>
+
+<span class="token hvariable">feedSalmon</span> <span class="token operator">::</span> <span class="token constant">SalmonID</span> <span class="token operator">-&gt;</span> <span class="token constant">Salmon</span> <span class="token punctuation">(</span><span class="token constant">Maybe</span> <span class="token constant">SalmonID</span><span class="token punctuation">)</span>
+<span class="token hvariable">feedSalmon</span> <span class="token builtin">id</span> <span class="token operator">=</span> <span class="token keyword">do</span>
+    <span class="token hvariable">success</span> <span class="token operator">&lt;-</span> <span class="token hvariable">liftIO</span> <span class="token operator">$</span> <span class="token hvariable">randomIO</span> <span class="token operator">::</span> <span class="token constant">Salmon</span> <span class="token constant">Bool</span>
+    <span class="token builtin">return</span> <span class="token operator">$</span> <span class="token keyword">if</span> <span class="token hvariable">success</span> <span class="token keyword">then</span> <span class="token constant">Just</span> <span class="token builtin">id</span> <span class="token keyword">else</span> <span class="token constant">Nothing</span>
+
+<span class="token hvariable">processBatch</span> <span class="token operator">::</span> <span class="token punctuation">[</span><span class="token constant">SalmonID</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token constant">Salmon</span> <span class="token punctuation">[</span><span class="token constant">SalmonID</span><span class="token punctuation">]</span>
+<span class="token hvariable">processBatch</span> <span class="token operator">=</span> <span class="token builtin">mapM</span> <span class="token punctuation">(</span><span class="token hvariable">feedSalmon</span> <span class="token operator">&gt;=&gt;</span> <span class="token builtin">return</span><span class="token operator"> . </span><span class="token hvariable">maybeToList</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="functor-fins-mapping-growth-across-populations">3. Functor Fins: Mapping Growth Across Populations</h2>
+<h3 id="the-fin-functor">3.1 The Fin Functor</h3>
+<p>By treating fins as functors, we can apply transformations to fish attributes with unprecedented elegance:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">data</span> <span class="token constant">Fin</span> <span class="token hvariable">a</span> <span class="token operator">=</span> <span class="token constant">Fin</span> <span class="token punctuation">{</span> <span class="token builtin">length</span> <span class="token operator">::</span> <span class="token constant">Float</span><span class="token punctuation">,</span> <span class="token hvariable">strength</span> <span class="token operator">::</span> <span class="token constant">Float</span><span class="token punctuation">,</span> <span class="token hvariable">a</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">instance</span> <span class="token constant">Functor</span> <span class="token constant">Fin</span> <span class="token keyword">where</span> 
+ <span class="token builtin">fmap</span> <span class="token hvariable">f</span> <span class="token punctuation">(</span><span class="token constant">Fin</span> <span class="token hvariable">l</span> <span class="token hvariable">s</span> <span class="token hvariable">x</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token constant">Fin</span> <span class="token hvariable">l</span> <span class="token hvariable">s</span> <span class="token punctuation">(</span><span class="token hvariable">f</span> <span class="token hvariable">x</span><span class="token punctuation">)</span>
+
+<span class="token hvariable">growFin</span> <span class="token operator">::</span> <span class="token constant">Float</span> <span class="token operator">-&gt;</span> <span class="token constant">Fin</span> <span class="token hvariable">a</span> <span class="token operator">-&gt;</span> <span class="token constant">Fin</span> <span class="token hvariable">a</span>
+<span class="token hvariable">growFin</span> <span class="token hvariable">factor</span> <span class="token punctuation">(</span><span class="token constant">Fin</span> <span class="token hvariable">l</span> <span class="token hvariable">s</span> <span class="token hvariable">x</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token constant">Fin</span> <span class="token punctuation">(</span><span class="token hvariable">l</span> <span class="token operator">*</span> <span class="token hvariable">factor</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token hvariable">s</span> <span class="token operator">*</span> <span class="token builtin">sqrt</span> <span class="token hvariable">factor</span><span class="token punctuation">)</span> <span class="token hvariable">x</span>
+
+<span class="token comment">-- Apply growth to all fins</span>
+<span class="token hvariable">growSalmon</span> <span class="token operator">::</span> <span class="token constant">Float</span> <span class="token operator">-&gt;</span> <span class="token constant">Salmon</span> <span class="token hvariable">a</span> <span class="token operator">-&gt;</span> <span class="token constant">Salmon</span> <span class="token hvariable">a</span>
+<span class="token hvariable">growSalmon</span> <span class="token hvariable">factor</span> <span class="token operator">=</span> <span class="token builtin">fmap</span> <span class="token operator">$</span> <span class="token operator">\</span><span class="token hvariable">s</span> <span class="token operator">-&gt;</span> 
+    <span class="token hvariable">s</span> <span class="token punctuation">{</span> <span class="token hvariable">dorsal</span>   <span class="token operator">=</span> <span class="token hvariable">growFin</span> <span class="token hvariable">factor</span> <span class="token punctuation">(</span><span class="token hvariable">dorsal</span> <span class="token hvariable">s</span><span class="token punctuation">)</span>
+      <span class="token punctuation">,</span> <span class="token hvariable">pectoral</span> <span class="token operator">=</span> <span class="token hvariable">growFin</span> <span class="token hvariable">factor</span> <span class="token punctuation">(</span><span class="token hvariable">pectoral</span> <span class="token hvariable">s</span><span class="token punctuation">)</span>
+      <span class="token punctuation">,</span> <span class="token hvariable">caudal</span>   <span class="token operator">=</span> <span class="token hvariable">growFin</span> <span class="token hvariable">factor</span> <span class="token punctuation">(</span><span class="token hvariable">caudal</span> <span class="token hvariable">s</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="lazy-evaluation-in-population-dynamics">4. Lazy Evaluation in Population Dynamics</h2>
+<p>Haskell’s lazy evaluation proves invaluable when modeling long-term population dynamics. We can define potentially infinite streams of salmon generations:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">data</span> <span class="token constant">SalmonGen</span> <span class="token operator">=</span> <span class="token constant">SalmonGen</span> <span class="token punctuation">{</span> <span class="token hvariable">population</span> <span class="token operator">::</span> <span class="token constant">Int</span><span class="token punctuation">,</span> <span class="token hvariable">nextGen</span> <span class="token operator">::</span> <span class="token constant">SalmonGen</span> <span class="token punctuation">}</span>
+
+<span class="token hvariable">evolvePopulation</span> <span class="token operator">::</span> <span class="token constant">Int</span> <span class="token operator">-&gt;</span> <span class="token constant">SalmonGen</span>
+<span class="token hvariable">evolvePopulation</span> <span class="token hvariable">initial</span> <span class="token operator">=</span> <span class="token constant">SalmonGen</span> <span class="token hvariable">initial</span> <span class="token punctuation">(</span><span class="token hvariable">evolvePopulation</span> <span class="token hvariable">nextPop</span><span class="token punctuation">)</span>
+  <span class="token keyword">where</span> <span class="token hvariable">nextPop</span> <span class="token operator">=</span> <span class="token builtin">round</span> <span class="token operator">$</span> <span class="token builtin">fromIntegral</span> <span class="token hvariable">initial</span> <span class="token operator">*</span> <span class="token number">1.1</span> <span class="token comment">-- 10% growth per generation</span>
+
+<span class="token comment">-- Take the first 10 generations</span>
+<span class="token builtin">take</span> <span class="token number">10</span> <span class="token operator">$</span> <span class="token builtin">map</span> <span class="token hvariable">population</span> <span class="token operator">$</span> <span class="token builtin">iterate</span> <span class="token punctuation">(</span><span class="token hvariable">nextGen</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token hvariable">evolvePopulation</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="higher-order-functions-for-feeding-schedules">5. Higher-Order Functions for Feeding Schedules</h2>
+<p>Higher-order functions simplify the implementation of complex feeding schedules:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">type</span> <span class="token constant">FeedingSchedule</span> <span class="token operator">=</span> <span class="token constant">Time</span> <span class="token operator">-&gt;</span> <span class="token constant">Amount</span>
+
+<span class="token hvariable">combinedSchedule</span> <span class="token operator">::</span> <span class="token punctuation">[</span><span class="token constant">FeedingSchedule</span><span class="token punctuation">]</span> <span class="token operator">-&gt;</span> <span class="token constant">FeedingSchedule</span>
+<span class="token hvariable">combinedSchedule</span> <span class="token hvariable">schedules</span> <span class="token operator">=</span> <span class="token operator">\</span><span class="token hvariable">t</span> <span class="token operator">-&gt;</span> <span class="token builtin">sum</span> <span class="token operator">$</span> <span class="token builtin">map</span> <span class="token punctuation">(</span><span class="token operator">$</span><span class="token hvariable">t</span><span class="token punctuation">)</span> <span class="token hvariable">schedules</span>
+
+<span class="token hvariable">winterSchedule</span> <span class="token operator">=</span> <span class="token operator">\</span><span class="token hvariable">t</span> <span class="token operator">-&gt;</span> <span class="token keyword">if</span> <span class="token hvariable">isWinter</span> <span class="token hvariable">t</span> <span class="token keyword">then</span> <span class="token number">50</span> <span class="token keyword">else</span> <span class="token number">100</span>
+<span class="token hvariable">summerSchedule</span> <span class="token operator">=</span> <span class="token operator">\</span><span class="token hvariable">t</span> <span class="token operator">-&gt;</span> <span class="token keyword">if</span> <span class="token hvariable">isSummer</span> <span class="token hvariable">t</span> <span class="token keyword">then</span> <span class="token number">150</span> <span class="token keyword">else</span> <span class="token number">100</span>
+
+<span class="token hvariable">annualSchedule</span> <span class="token operator">=</span> <span class="token hvariable">combinedSchedule</span> <span class="token punctuation">[</span><span class="token hvariable">winterSchedule</span><span class="token punctuation">,</span> <span class="token hvariable">summerSchedule</span><span class="token punctuation">]</span>
+</code></pre>
+<h2 id="monadic-error-handling-in-water-quality-management">6. Monadic Error Handling in Water Quality Management</h2>
+<p>We use Haskell’s powerful monadic error handling to manage water quality:</p>
+<pre class=" language-haskell"><code class="prism  language-haskell"><span class="token keyword">data</span> <span class="token constant">WaterQuality</span> <span class="token operator">=</span> <span class="token constant">WaterQuality</span> <span class="token punctuation">{</span> <span class="token hvariable">pH</span> <span class="token operator">::</span> <span class="token constant">Float</span><span class="token punctuation">,</span> <span class="token hvariable">temperature</span> <span class="token operator">::</span> <span class="token constant">Float</span> <span class="token punctuation">}</span>
+
+<span class="token hvariable">checkWaterQuality</span> <span class="token operator">::</span> <span class="token constant">WaterQuality</span> <span class="token operator">-&gt;</span> <span class="token constant">Either</span> <span class="token constant">String</span> <span class="token constant">WaterQuality</span>
+<span class="token hvariable">checkWaterQuality</span> <span class="token hvariable">wq</span>
+    <span class="token operator">|</span> <span class="token hvariable">pH</span> <span class="token hvariable">wq</span> <span class="token operator">&lt;</span> <span class="token number">6.5</span> <span class="token operator">||</span> <span class="token hvariable">pH</span> <span class="token hvariable">wq</span> <span class="token operator">&gt;</span> <span class="token number">8.5</span> <span class="token operator">=</span> <span class="token constant">Left</span> <span class="token string">"pH out of range"</span>
+    <span class="token operator">|</span> <span class="token hvariable">temperature</span> <span class="token hvariable">wq</span> <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token operator">||</span> <span class="token hvariable">temperature</span> <span class="token hvariable">wq</span> <span class="token operator">&gt;</span> <span class="token number">18</span> <span class="token operator">=</span> <span class="token constant">Left</span> <span class="token string">"Temperature out of range"</span>
+    <span class="token operator">|</span> <span class="token builtin">otherwise</span> <span class="token operator">=</span> <span class="token constant">Right</span> <span class="token hvariable">wq</span>
+
+<span class="token hvariable">adjustWaterQuality</span> <span class="token operator">::</span> <span class="token constant">WaterQuality</span> <span class="token operator">-&gt;</span> <span class="token constant">Salmon</span> <span class="token constant">WaterQuality</span>
+<span class="token hvariable">adjustWaterQuality</span> <span class="token hvariable">wq</span> <span class="token operator">=</span> <span class="token keyword">do</span>
+    <span class="token keyword">case</span> <span class="token hvariable">checkWaterQuality</span> <span class="token hvariable">wq</span> <span class="token keyword">of</span>
+        <span class="token constant">Left</span> <span class="token hvariable">err</span> <span class="token operator">-&gt;</span> <span class="token hvariable">liftIO</span> <span class="token punctuation">(</span><span class="token builtin">putStrLn</span> <span class="token operator">$</span> <span class="token string">"Warning: "</span> <span class="token operator">++</span> <span class="token hvariable">err</span><span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> <span class="token builtin">return</span> <span class="token hvariable">wq</span>
+        <span class="token constant">Right</span> <span class="token hvariable">wq</span> <span class="token operator">-&gt;</span> <span class="token builtin">return</span> <span class="token hvariable">wq</span>
+</code></pre>
+<h2 id="results-and-discussion">7. Results and Discussion</h2>
+<p>Our purely functional approach to salmon farming has yielded remarkable results. Code complexity, as measured by the number of mutable variables and side effects, has decreased by 69%. This reduction in complexity has led to fewer bugs and more maintainable systems.</p>
+<p>Moreover, salmon yield has increased by 42%, which we attribute to the more precise and predictable nature of our functional models. The use of monads has allowed for better handling of uncertainties in the farming process, while functors have provided a clean way to apply transformations across entire populations.</p>
+<h2 id="conclusion-and-future-work">8. Conclusion and Future Work</h2>
+<p>This paper has demonstrated the surprising effectiveness of applying purely functional programming concepts to salmon farming. By thinking of salmon as monads and fins as functors, we have developed a system that is both more elegant and more productive than traditional approaches.</p>
+<p>Future work will explore the application of other advanced Haskell concepts to aquaculture. We are particularly excited about the potential of using arrows to model the flow of water in fish farms, and the possibility of applying the Cont monad to model the entire lifecycle of a salmon from egg to plate.</p>
+<p>In conclusion, we believe that this work opens up a new field of study: Ichthyo-Functional Programming. We eagerly anticipate the day when fish farmers will discuss monads and functors with the same familiarity as they currently discuss fish feed and water quality.</p>
+<p>References</p>
+<pre><code>1. Wadler, P. "Monads for Fish Farmers," Journal of Improbable Computer Science, 2023.
+2. Salmon, A. "A Fishy Approach to Functional Programming," Proceedings of the International Conference on Aquatic Code, 2024.
+3. Trout, R. "Stream Processing with Real Streams: Haskell in Hydroponics," Aquaculture Abstractions Quarterly, 2025.
+</code></pre>
+</div>
+</body>
+
+</html>
