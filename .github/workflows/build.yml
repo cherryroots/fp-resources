@@ -28,7 +28,7 @@ jobs:
     - name: Convert README to HTML and generate index.html
       run: |
         README_HTML=$(marked README.md)
-        echo "{\"name\": \"${{ github.repository }}\", \"content\": {\"html\": $(echo "$README_HTML" | jq -Rs .)}}" > vars.json
+        echo "{\"name\": \"${{ github.repository }}\", \"html\": $(echo "$README_HTML" | jq -Rs.)}" > vars.json
         cat << EOF > template.html
         <!DOCTYPE html>
         <html>
@@ -39,7 +39,7 @@ jobs:
           <link rel="stylesheet" href="https://stackedit.io/style.css" />
         </head>
         <body class="stackedit">
-          <div class="stackedit__html">{{{content.html}}}</div>
+          <div class="stackedit__html">{{html}}</div>
         </body>
         </html>
         EOF
@@ -48,7 +48,7 @@ jobs:
 
     - name: Commit and push if changed
       run: |
-        git config --global user.name 'GitHub Action'
+        git config --global user.name'GitHub Action'
         git config --global user.email 'action@github.com'
         git add index.html
         git diff --quiet && git diff --staged --quiet || (git commit -m "Automatically update index.html" && git push)
