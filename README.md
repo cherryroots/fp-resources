@@ -20,7 +20,7 @@
 
 #### Additional Resources
 - [99 OCaml Problems](https://ocaml.org/exercises)
-- [7 OCaml Gotchas]("https://dev.to/chshersh/7-ocaml-gotchas-207e")
+- [7 OCaml Gotchas](https://dev.to/chshersh/7-ocaml-gotchas-207e)
 - [Real World OCaml](https://dev.realworldocaml.org/)
 
 ### Elixir
