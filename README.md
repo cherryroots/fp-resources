@@ -11,6 +11,7 @@
 	- [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia)
 	- [Haskell Wiki](https://wiki.haskell.org/Haskell)
 - Learn Haskell: https://www.haskell.org/documentation/
+	- [Playground](https://play.haskell.org)
 - Community: https://www.haskell.org/community/
 
 #### Additional Resources
@@ -27,7 +28,8 @@
 	- [std lib](https://ocaml.org/manual/5.2/api/index.html)
 	- [manual](https://ocaml.org/manual/5.2/index.html)
 - Learn OCaml: https://ocaml.org/docs
-	- [CS 3110](https://cs3110.github.io/textbook/cover.html)
+	- [Playground](https://ocaml.org/play)
+	- [CS 3110 Textbook](https://cs3110.github.io/textbook/cover.html)
 - Community: https://ocaml.org/community
 
 #### Additional Resources
@@ -39,6 +41,7 @@
 - Official Website: https://elixir-lang.org
 - Documentation: [https://elixir-lang.org/docs](https://elixir-lang.org/docs.html)
 - Learn Elixir: [https://elixir-lang.org/learning](https://elixir-lang.org/learning.html)
+	- [Playground](https://playground.functional-rewire.com)
 - Community: Sidebar on the homepage
 
 #### Additional Resources
@@ -48,6 +51,8 @@
 - Category Theory
 	* [Bartosz Milkewski's YouTube playlist](https://youtube.com/playlist?list=PLbgaMIhjbmEnaH_LTkxLI7FMa2HsnawM_&si=eTD42ZJk1Kpf7cgr)
 	* [Bartos Milkewski's "Category Theory for Programmers"](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
+- Logic
+	- [Logic & Foundations with Haskell - YT](https://www.youtube.com/playlist?list=PLd8NbPjkXPliojM8YMN3z3o9--zXwti8Z)
 
 ## Additional Resources
 - [Functional Programming Discord](https://discord.com/invite/kENVVQ5)
