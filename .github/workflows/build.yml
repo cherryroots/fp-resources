@@ -28,8 +28,7 @@ jobs:
     - name: Convert README to HTML and generate index.html
       run: |
         README_HTML=$(marked README.md)
-        echo "{\"name\": \"${{ github.repository }}\", \"html\": $(echo "$README_HTML" | jq -Rs.)}" > vars.json
-        cat << EOF > template.html
+        echo "{\"name\": \"${{ github.repository }}\", \"html\": $(echo "$README_HTML" | jq -Rs .)}" > vars.json        cat << EOF > template.html
         <!DOCTYPE html>
         <html>
         <head>
@@ -39,7 +38,7 @@ jobs:
           <link rel="stylesheet" href="https://stackedit.io/style.css" />
         </head>
         <body class="stackedit">
-          <div class="stackedit__html">{{html}}</div>
+          <div class="stackedit__html">{{{html}}}</div>
         </body>
         </html>
         EOF
