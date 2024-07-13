@@ -1,12 +1,15 @@
 
-# Functional Programming Languages Resource List
+# Functional Programming Resource List
 
 ## Pure Functional Languages
 
 ### Haskell
 - Official Website: https://www.haskell.org
-- Documentation: https://www.haskell.org/documentation/
-- Learn Haskell: [Link]
+- Documentation
+	- [Hoogle - api search](https://hoogle.haskell.org)
+	- [Hackage - package repo](https://hackage.haskell.org)
+	- [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia)
+- Learn Haskell: https://www.haskell.org/documentation/
 - Community: https://www.haskell.org/community/
 
 
@@ -14,8 +17,10 @@
 
 ### OCaml
 - Official Website: https://ocaml.org
-- Documentation: https://ocaml.org/docs
-- Learn OCaml: [Link]
+- Documentation
+	- [std lib](https://ocaml.org/manual/5.2/api/index.html)
+	- [manual](https://ocaml.org/manual/5.2/index.html)
+- Learn OCaml: https://ocaml.org/docs
 - Community: https://ocaml.org/community
 
 #### Additional Resources
@@ -24,10 +29,13 @@
 - [Real World OCaml](https://dev.realworldocaml.org/)
 
 ### Elixir
-- Official Website: [Link]
-- Documentation: [Link]
-- Learn Elixir: [Link]
-- Community: [Link]
+- Official Website: https://elixir-lang.org
+- Documentation: [https://elixir-lang.org/docs](https://elixir-lang.org/docs.html)
+- Learn Elixir: [https://elixir-lang.org/learning](https://elixir-lang.org/learning.html)
+- Community: Sidebar on the homepage
+
+#### Additional Resources
+- [Elixir school](https://elixirschool.com/en)
 
 ## Shared Concepts
 - Category Theory
