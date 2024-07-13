@@ -55,4 +55,5 @@
 	- [Logic & Foundations with Haskell - YT](https://www.youtube.com/playlist?list=PLd8NbPjkXPliojM8YMN3z3o9--zXwti8Z)
 
 ## Additional Resources
+- [This github page](https://github.com/cherryroots/fp-resources)
 - [Functional Programming Discord](https://discord.com/invite/kENVVQ5)
