@@ -9,9 +9,14 @@
 	- [Hoogle - api search](https://hoogle.haskell.org)
 	- [Hackage - package repo](https://hackage.haskell.org)
 	- [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia)
- 	- [Haskell Wiki](https://wiki.haskell.org/Haskell) 
+	- [Haskell Wiki](https://wiki.haskell.org/Haskell)
 - Learn Haskell: https://www.haskell.org/documentation/
 - Community: https://www.haskell.org/community/
+
+#### Additional Resources
+- [Haskell for Imperative Programmers - YT](https://www.youtube.com/playlist?list=PLe7Ei6viL6jGp1Rfu0dil1JH1SHk9bgDV)
+- [Functors, Applicatives, And Monads In Pictures](https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
+- [Reader, Writer and State Monads](https://www.adit.io/posts/2013-06-10-three-useful-monads.html)
 
 
 ## Mixed Paradigm Functional Languages
