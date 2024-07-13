@@ -28,7 +28,9 @@ jobs:
     - name: Convert README to HTML and generate index.html
       run: |
         README_HTML=$(marked README.md)
-        echo "{\"name\": \"${{ github.repository }}\", \"html\": $(echo "$README_HTML" | jq -Rs .)}" > vars.json        cat << EOF > template.html
+        JSON_CONTENT=$(echo "$README_HTML" | jq -Rs .)
+        echo "{\"name\": \"${{ github.repository }}\", \"html\": $JSON_CONTENT}" > vars.json
+        cat << EOF > template.html
         <!DOCTYPE html>
         <html>
         <head>
