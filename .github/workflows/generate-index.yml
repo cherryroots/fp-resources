@@ -33,7 +33,7 @@ jobs:
         echo "{\"name\": \"${{ github.repository }}\", \"content\": {\"html\": $(echo "$README_HTML" | jq -Rs .)}}" > vars.json
         
         # Use mustache to render the template
-        cat << EOF | mustache vars.json - > index.html
+        cat << EOF | mustache vars.json > index.html
         <!DOCTYPE html>
         <html>
         <head>
