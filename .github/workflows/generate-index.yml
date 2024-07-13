@@ -17,7 +17,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Install dependencies
       run: |
@@ -32,8 +32,8 @@ jobs:
         # Create a temporary JSON file with the variables
         echo "{\"name\": \"${{ github.repository }}\", \"content\": {\"html\": $(echo "$README_HTML" | jq -Rs .)}}" > vars.json
         
-        # Use mustache to render the template
-        cat << EOF | mustache vars.json > index.html
+        # Create a temporary template file
+        cat << EOF > template.html
         <!DOCTYPE html>
         <html>
         <head>
@@ -41,11 +41,18 @@ jobs:
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>{{name}}</title>
           <link rel="stylesheet" href="https://stackedit.io/style.css" />
-        </head><body class="stackedit">
+        </head>
+        <body class="stackedit">
           <div class="stackedit__html">{{{content.html}}}</div>
         </body>
         </html>
         EOF
+        
+        # Use mustache to render the template
+        mustache vars.json template.html > index.html
+        
+        # Clean up temporary files
+        rm vars.json template.html
 
     - name: Commit and push if changed
       run: |
