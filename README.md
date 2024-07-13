@@ -9,6 +9,7 @@
 	- [Hoogle - api search](https://hoogle.haskell.org)
 	- [Hackage - package repo](https://hackage.haskell.org)
 	- [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia)
+ 	- [Haskell Wiki](https://wiki.haskell.org/Haskell) 
 - Learn Haskell: https://www.haskell.org/documentation/
 - Community: https://www.haskell.org/community/
 
