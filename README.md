@@ -21,6 +21,7 @@
 	- [std lib](https://ocaml.org/manual/5.2/api/index.html)
 	- [manual](https://ocaml.org/manual/5.2/index.html)
 - Learn OCaml: https://ocaml.org/docs
+	- [CS 3110](https://cs3110.github.io/textbook/cover.html)
 - Community: https://ocaml.org/community
 
 #### Additional Resources
