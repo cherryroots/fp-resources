@@ -1,4 +1,4 @@
-name: Build and Deploy to GitHub Pages
+name: Build index.html
 
 on:
   push:
@@ -7,12 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -21,10 +15,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - name: Setup Node.jsuses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '14'
 
     - name: Install dependencies
       run: |
@@ -58,24 +51,3 @@ jobs:
         git config --global user.email 'action@github.com'
         git add index.html
         git diff --quiet && git diff --staged --quiet || (git commit -m "Automatically update index.html" && git push)
-        
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
