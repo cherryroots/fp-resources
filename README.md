@@ -12,6 +12,7 @@
 	- [Haskell Wiki](https://wiki.haskell.org/Haskell)
 - Learn Haskell: https://www.haskell.org/documentation/
 	- [Playground](https://play.haskell.org)
+	- [Haskell MOOC](https://haskell.mooc.fi/)
 - Community: https://www.haskell.org/community/
 
 #### Additional Resources
